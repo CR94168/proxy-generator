@@ -28,6 +28,12 @@ define('COLOR_RESET', "\033[0m");
 
 
 echo COLOR_ORANGE . "Starting...\n" . COLOR_RESET;
+$limit = isset($argv[1]) && $argv[1] === '--limit' && isset($argv[2]) ? intval($argv[2]) : 999999999999999999;
+
+if ($limit !== 999999999999999999) {
+    echo COLOR_ORANGE . "Limit : " . COLOR_BOLD_MAGENTA . $limit . "\n";
+}
+
 $proxy_list = [
     [
         'address' => 'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
@@ -58,6 +64,22 @@ $proxy_list = [
         'type' => 'http'
     ],
     [
+        'address' => 'https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/http.txt',
+        'type' => 'http'
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks4.txt',
+        'type' => 'socks4'
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/socks5.txt',
+        'type' => 'socks5'
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/ShiftyTR/Proxy-List/master/https.txt',
+        'type' => 'https'
+    ],
+    [
         'address' => 'https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/proxies.txt',
         'type' => 'http'
     ],
@@ -65,12 +87,51 @@ $proxy_list = [
         'address' => 'https://raw.githubusercontent.com/andigwandi/free-proxy/main/proxy_list.txt',
         'type' => 'http'
     ],
-
+    [
+        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=5000&country=all&ssl=all&anonymity=all',
+        'type' => 'http'
+    ],
+    [
+        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=5000&country=all&ssl=all&anonymity=all',
+        'type' => 'socks4'
+    ],
+    [
+        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5&timeout=5000&country=all&ssl=all&anonymity=all',
+        'type' => 'socks5'
+    ],
+    [
+        'address' => 'https://www.proxy-list.download/api/v1/get?type=socks4',
+        'type' => 'socks4'
+    ],
+    [
+        'address' => 'https://www.proxy-list.download/api/v1/get?type=http',
+        'type' => 'http'
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/opsxcq/proxy-list/master/list.txt',
+        'type' => 'http'
+    ],
+    // [
+    //     'address' => 'https://www.proxyscan.io/download?type=http',
+    //     'type' => 'http'
+    // ],
+    // [
+    //     'address' => 'https://www.proxyscan.io/download?type=https',
+    //     'type' => 'https'
+    // ],
+    // [
+    //     'address' => 'https://www.proxyscan.io/download?type=socks4',
+    //     'type' => 'socks4'
+    // ],
+    // [
+    //     'address' => 'https://www.proxyscan.io/download?type=socks5',
+    //     'type' => 'socks5'
+    // ],
 ];
 
 $data = "";
 $count = 0;
-$counter = [];
+$counter = ['http' => 0, 'https' => 0, 'socks4' => 0, 'socks5' => 0];
 foreach ($proxy_list as $proxy) {
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $proxy['address']);
@@ -78,16 +139,31 @@ foreach ($proxy_list as $proxy) {
     $output = curl_exec($ch);
     curl_close($ch);
 
+    if ($count >= $limit) {
+        break;
+    }
+
     $output = explode("\n", $output);
-    $counter[$proxy['type']] = count($output);
+    $counter[$proxy['type']] += count($output);
     foreach ($output as $line) {
+        if ($count >= $limit) {
+            break;
+        }
+
+        if (empty($line)) {
+            continue;
+        }
+
         $line = $proxy['type'] . '://' . $line . "\n";
         $data .= $line;
         $count++;
+        echo COLOR_ORANGE . "Fetching proxies.... " . COLOR_BOLD_CYAN . $count . COLOR_RESET . "\r";
     }
 }
+echo "\n";
 echo COLOR_GREEN . "Total: " . COLOR_BOLD_CYAN . $count . COLOR_RESET . " proxies\n";
 echo COLOR_BOLD_BLUE . "HTTP: " . COLOR_BOLD_CYAN . $counter['http'] . COLOR_RESET . " proxies\n";
+echo COLOR_BOLD_BLUE . "HTTPS: " . COLOR_BOLD_CYAN . $counter['https'] . COLOR_RESET . " proxies\n";
 echo COLOR_BOLD_PURPLE . "SOCKS4: " . COLOR_BOLD_CYAN . $counter['socks4'] . COLOR_RESET . " proxies\n";
 echo COLOR_BOLD_CYAN . "SOCKS5: " . COLOR_BOLD_CYAN . $counter['socks5'] . COLOR_RESET . " proxies\n";
 file_put_contents('proxy.txt', $data);
