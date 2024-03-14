@@ -1,4 +1,6 @@
 # PROXY GENERATOR
+
+```
 ___________________________  ___  __                                     
 ___  __ \__  __ \_  __ \_  |/ / \/ /                                     
 __  /_/ /_  /_/ /  / / /_    /__  /                                      
@@ -10,6 +12,7 @@ __  ____/__  ____/__  | / /__  ____/__  __ \__    |__  __/_  __ \__  __ \
 _  / __ __  __/  __   |/ /__  __/  __  /_/ /_  /| |_  /  _  / / /_  /_/ /
 / /_/ / _  /___  _  /|  / _  /___  _  _, _/_  ___ |  /   / /_/ /_  _, _/ 
 \____/  /_____/  /_/ |_/  /_____/  /_/ |_| /_/  |_/_/    \____/ /_/ |_|  
+```
                                                                          
                                                                                                                           
 To run the PHP CLI script `proxy.php`, open your terminal and navigate to the directory where the file is located. Then, execute the following command:
