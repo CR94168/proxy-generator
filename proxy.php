@@ -60,7 +60,12 @@ $proxy_list = [
     [
         'address' => 'https://raw.githubusercontent.com/sunny9577/proxy-scraper/master/proxies.txt',
         'type' => 'http'
-    ]
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/andigwandi/free-proxy/main/proxy_list.txt',
+        'type' => 'http'
+    ],
+
 ];
 
 $data = "";
