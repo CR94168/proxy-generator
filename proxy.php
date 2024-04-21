@@ -36,18 +36,6 @@ if ($limit !== 999999999999999999) {
 
 $proxy_list = [
     [
-        'address' => 'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
-        'type' => 'http'
-    ],
-    [
-        'address' => 'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
-        'type' => 'socks4'
-    ],
-    [
-        'address' => 'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
-        'type' => 'socks5'
-    ],
-    [
         'address' => 'https://raw.githubusercontent.com/TheSpeedX/PROXY-List/master/http.txt',
         'type' => 'http'
     ],
@@ -57,6 +45,30 @@ $proxy_list = [
     ],
     [
         'address' => 'https://raw.githubusercontent.com/TheSpeedX/SOCKS-List/master/socks5.txt',
+        'type' => 'socks5'
+    ],
+    [
+        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=5000&country=all&ssl=all&anonymity=all',
+        'type' => 'http'
+    ],
+    [
+        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=5000&country=all&ssl=all&anonymity=all',
+        'type' => 'socks4'
+    ],
+    [
+        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5&timeout=5000&country=all&ssl=all&anonymity=all',
+        'type' => 'socks5'
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
+        'type' => 'http'
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
+        'type' => 'socks4'
+    ],
+    [
+        'address' => 'https://raw.githubusercontent.com/clarketm/proxy-list/master/proxy-list-raw.txt',
         'type' => 'socks5'
     ],
     [
@@ -87,18 +99,7 @@ $proxy_list = [
         'address' => 'https://raw.githubusercontent.com/andigwandi/free-proxy/main/proxy_list.txt',
         'type' => 'http'
     ],
-    [
-        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=http&timeout=5000&country=all&ssl=all&anonymity=all',
-        'type' => 'http'
-    ],
-    [
-        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks4&timeout=5000&country=all&ssl=all&anonymity=all',
-        'type' => 'socks4'
-    ],
-    [
-        'address' => 'https://api.proxyscrape.com/v2/?request=getproxies&protocol=socks5&timeout=5000&country=all&ssl=all&anonymity=all',
-        'type' => 'socks5'
-    ],
+
     [
         'address' => 'https://www.proxy-list.download/api/v1/get?type=socks4',
         'type' => 'socks4'
